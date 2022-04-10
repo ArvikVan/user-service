@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+            name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>Thymeleaf Form handling Demo</title>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css"
+          rel="stylesheet">
+</head>
+<body class="container">
+Поиск пользователя по логину<br>
+<form action="#" class="col card p-3 mb-5" method="post" name="name" th:action="@{/userListByName}">
+    <div class="form-group">
+        <label>Enter user Name</label>
+        <input class="form-control"  id="name" name="name" placeholder="Enter Name to find" type="text"/>
+    </div>
+    <input class="btn btn-primary" type="submit" value="find User by Name">
+</form>
+<table class="table table-striped table-bordered">
+    <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Role</th>
+    </tr>
+    <tr th:each="user : ${userByName}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.role}"></td>
+    </tr>
+</table>
+<div>
+Получение всех пользователей<br>
+    <form class="col card p-3 mb-5" method="get" th:action="@{/getAllUsers}">
+        <input class="btn btn-primary" type="submit" value="get All User">
+    </form>
+    <table class="table table-striped table-bordered">
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Role</th>
+        </tr>
+        <tr th:if="${#lists.isEmpty(allUsers)}">
+            <td colspan="5">No Records found. Add some...!</td>
+        </tr>
+        <tr th:each="user : ${allUsers}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.role}"></td>
+        </tr>
+    </table>
+
+Получение списка пользователей по определенной роли<br>
+<form action="#" class="col card p-3 mb-5" method="post" name="role" th:action="@{/userByRole}">
+    <div class="form-group">
+        <label>Enter user Role</label>
+        <input class="form-control"  id="role" name="role" placeholder="Enter Role to find" type="text"/>
+    </div>
+    <input class="btn btn-primary" type="submit" value="find User by Role">
+</form>
+<table class="table table-striped table-bordered">
+    <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Role</th>
+    </tr>
+    <tr th:each="user : ${userByRole}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.role}"></td>
+    </tr>
+</table>
+<div>
+Создание нового пользователя<br>
+<form class="col card p-3 mb-5" method="get" th:action="@{/add}" th:object="${userModel}">
+    <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input class="form-control" id="firstName" placeholder="Enter First Name" required
+               field="*{name}" name="name" type="text"/>
+    </div>
+    <div class="form-group">
+        <label for="role">Role</label>
+        <select class="form-control " id="role" required field="*{role}" name="role">
+            <option hidden value="">Select a role</option>
+            <option
+                    th:each="role : ${T(arv.userservice.model.Role).values()}"
+                    th:text="${role}"
+                    th:value="${role}">
+            </option>
+        </select>
+    </div>
+    <input class="btn btn-primary" type="submit" value="Create User">
+</form>
+<!--<table class="table table-striped table-bordered">
+    <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Role</th>
+        <th>Created At</th>
+    </tr>
+    <tr th:if="${#lists.isEmpty(allUsers)}">
+        <td colspan="5">No Records found. Add some...!</td>
+    </tr>
+    <tr th:each="user : ${allUsers}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.role}"></td>
+        <td th:text="${user.createdAt}"></td>
+    </tr>
+</table>-->
+</div>
+Получение пользователя по идентификатору<br>
+<form action="#" class="col card p-3 mb-5" method="post" name="id" th:action="@{/userById}">
+    <div class="form-group">
+        <label>Enter user Id</label>
+        <input class="form-control"  id="id" name="id" placeholder="Enter id to find" type="number"/>
+    </div>
+    <input class="btn btn-primary" type="submit" value="find User">
+</form>
+<table class="table table-striped table-bordered">
+    <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Role</th>
+    </tr>
+    <tr th:each="user : ${userById}">
+        <td th:text="${userById.get().id}"></td>
+        <td th:text="${userById.get().name}"></td>
+        <td th:text="${userById.get().role}"></td>
+    </tr>
+</table>
+<br>
+
+</body>
+</html>
