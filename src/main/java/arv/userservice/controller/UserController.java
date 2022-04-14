@@ -4,7 +4,6 @@ import arv.userservice.model.Role;
 import arv.userservice.model.UserModel;
 import arv.userservice.service.UserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +18,7 @@ import java.util.Optional;
  */
 @Slf4j
 @Controller
+@RequestMapping("/")
 public class UserController {
     private final UserServiceImpl userService;
 
@@ -26,7 +26,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/getAllUsers")
+    @RequestMapping("/getAllUsers")
     public String showAllUsers(Model model) {
         List<UserModel> userModelList = userService.getUsers();
         model.addAttribute("allUsers", userModelList);
@@ -60,6 +60,11 @@ public class UserController {
         List<UserModel> userModelList = userService.findByName(name);
         model.addAttribute("userByName", userModelList);
         log.info("getUser by Name");
+        return "index";
+    }
+
+    @GetMapping("/getAll")
+    public String main() {
         return "index";
     }
 }
