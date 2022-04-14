@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta
@@ -53,6 +53,7 @@
     </table>
 
 Получение списка пользователей по определенной роли<br>
+    <div sec:authorize="hasRole('admin')">
 <form action="#" class="col card p-3 mb-5" method="post" name="role" th:action="@{/userByRole}">
     <div class="form-group">
         <label>Enter user Role</label>
@@ -72,6 +73,7 @@
         <td th:text="${user.role}"></td>
     </tr>
 </table>
+    </div>
 <div>
 Создание нового пользователя<br>
 <form class="col card p-3 mb-5" method="get" th:action="@{/add}" th:object="${userModel}">

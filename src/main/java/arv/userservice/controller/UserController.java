@@ -18,7 +18,7 @@ import java.util.Optional;
  */
 @Slf4j
 @Controller
-@RequestMapping("/")
+@RequestMapping("/user-service")
 public class UserController {
     private final UserServiceImpl userService;
 
