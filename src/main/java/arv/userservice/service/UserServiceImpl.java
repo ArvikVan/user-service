@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserModel> findByName(String name) {
-        return userRepo.findAllByName(name);
+        return userRepo.findAllByUsername(name);
     }
 
 }

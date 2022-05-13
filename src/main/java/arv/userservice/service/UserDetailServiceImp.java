@@ -39,7 +39,7 @@ public class UserDetailServiceImp implements UserDetailsService {
             log.info("user found in db: {}", username);
         }
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        user.getRoles().forEach(role -> {
+        user.getRole().forEach(role -> {
             authorities.add(new SimpleGrantedAuthority(role.getName()));
         });
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);

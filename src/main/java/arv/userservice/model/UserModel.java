@@ -26,6 +26,6 @@ public class UserModel {
     private String username;
     private String password;
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<Role> roles = new ArrayList<>();
+    private List<Role> role = new ArrayList<>();
     private LocalDateTime createdAt = LocalDateTime.now();
 }
